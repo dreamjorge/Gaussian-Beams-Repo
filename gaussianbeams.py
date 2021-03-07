@@ -46,14 +46,14 @@ class _waist(object):
         waist = (obj.initialWaist)*np.sqrt( np.square(obj.zCoordinate/obj.RayleighDistance) + 1)
         return waist
     def __set__(self,instance,value):
-         """__set__ rule for set waist value
+        """__set__ rule for set waist value
         :raises TypeError: [description]
         """    
         raise TypeError("waist is not possible to set") 
 
 class _radius(object):
     def __get__(self,obj,owner):
-         """__get__ get value of radius, with zCoordinate and RayleighDistance in object
+        """__get__ get value of radius, with zCoordinate and RayleighDistance in object
         :return: value of radius with formula.
         :rtype: float in pysical units.
         """
@@ -107,17 +107,17 @@ class _amplitude(object):
         amplitude = 1./obj.waist;
         return amplitude
     def __set__(self,obj,value):
-                """__set__ rule for set amplitude value
+        """__set__ rule for set amplitude value
         :raises TypeError: [description]
         """    
         raise TypeError("amplitude of Gaussian beam is not possible to set") 
 
 class _opticalField(object):
+    def __get__(self,obj,owner):
         """__get__ get value of opticalField, all parameters of beam in object
         :return: value of opticalField with formula.
         :rtype: float in pysical units.
         """
-    def __get__(self,obj,owner):
         opticalField = obj.amplitude\
                     * np.exp(-np.square(obj.rCoordinate/(obj.waist)))\
                     * np.exp( 1.j*((obj.k)*(np.square(obj.rCoordinate))/(2*(obj.radius))))\
@@ -187,7 +187,7 @@ class GuassianBeam(GaussianParameters):
     amplitude    = _amplitude()
     opticalField = _opticalField()
 
-``  #constructor of Gaussian Beam
+    #constructor of Gaussian Beam
     def __init__(self ,rCoordinate ,zCoordinate , initialWaist, wavelength):
         #calling GaussianParameters object with inputs, for create object.
         super().__init__( zCoordinate, initialWaist , wavelength)
